@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="BasicClass\Card.cs" />
     <Compile Include="BasicClass\CardPool.cs" />
+    <Compile Include="BasicClass\RarePool.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Program_IO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

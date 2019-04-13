@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -8,38 +9,32 @@ using System.Xml.Serialization;
 
 namespace CardSimulator {
     public partial class Program {
+        static string loadFloder = ConfigurationManager.AppSettings["Floder"];
+        static RarePool RarePool = new RarePool();
         static void Main(string[] args) {
-
-
-            //List<string> mc = new List<string>();
-            //mc.Add("1");
-            //mc.Add("2");
-            ////Console.WriteLine();
-
-            //string a = XmlSerialize(mc);
-            //var tmp = DESerializer<List<string>>(a);
             Load();
-            //SaveCardPool("R");
-            //CardPool cp = LoadCardPool("R");
-
-            //foreach (var item in Supervisor.RandRares(RarePool, RarePoolTotalValue, 10)) {
+            var i = LoadCardPool("R");
+            var a = LoadCardPool("SR");
+            //foreach (var item in Supervisor.RandCardsFromPool(i, 10)) {
             //    Console.WriteLine(item.Name);
             //}
-            //Console.WriteLine( Supervisor.RandCard(LoadCardPool("R")).Name);
-            var i = LoadCardPool("R");
-            foreach (var item in Supervisor.RandCards(i, 10)) {
+            //var e1 = Supervisor.RandCardsFromPool(i, 10);
+            //var tmp = Supervisor.FindAllAndAddNum(RarePool, e1);
+
+
+
+
+            var ans = RandomAllCards();
+            foreach (var item in ans) {
                 Console.WriteLine(item.Name);
             }
-            
+
 
 
             Console.ReadLine();
         }
         static void Load() {
-            RarePool = LoadClassFromXml<List<RareEnum>>("RarePool.xml");
-            foreach (var item in RarePool) {
-                RarePoolTotalValue += item.Value;
-            }
+            RarePool = LoadClassFromXml<RarePool>("RarePool.xml");
         }
         /// <summary>
         /// Xml序列化
