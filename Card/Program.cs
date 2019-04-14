@@ -11,27 +11,52 @@ namespace CardSimulator {
     public partial class Program {
         static string loadFloder = ConfigurationManager.AppSettings["Floder"];
         static RarePool RarePool = new RarePool();
+        static string commandline = "";
+        static OperationsList Ol = new OperationsList();
         static void Main(string[] args) {
             Load();
-            var i = LoadCardPool("R");
-            var a = LoadCardPool("SR");
             //foreach (var item in Supervisor.RandCardsFromPool(i, 10)) {
             //    Console.WriteLine(item.Name);
             //}
             //var e1 = Supervisor.RandCardsFromPool(i, 10);
             //var tmp = Supervisor.FindAllAndAddNum(RarePool, e1);
 
+            //var ans = RandomAllCardsWithSafe(10);
 
+            //foreach (var item in ans) {
+            //    Console.WriteLine(item.Name);
+            //}
 
+            while (true) {
+                var a = Console.ReadKey(true);
+                var b = new byte[1] { (byte)a.KeyChar };
+                if (a.Key == ConsoleKey.Tab) {
+                    var clsp = commandline.Trim().Split(' ');
+                    if (clsp.Length == 0 || clsp.Length == 1) {
+                        commandline += "\t";
+                        Console.Write("\t");
+                    } else {
+                        //信息检索代码
 
-            var ans = RandomAllCards();
-            foreach (var item in ans) {
-                Console.WriteLine(item.Name);
+                        Console.WriteLine(clsp[clsp.Length - 1]);
+                    }
+                } else if (a.Key == ConsoleKey.Enter) {
+                    //命令执行代码
+                    Console.WriteLine();
+                    commandline = commandline.Trim();
+
+                    Console.WriteLine(commandline);
+                    commandline = "";
+                } else if (a.Key == ConsoleKey.Backspace) {
+                    if (commandline!="") {
+                        
+                    }
+                } else {
+                    var tmp = Encoding.ASCII.GetString(b);
+                    commandline += tmp;
+                    Console.Write(tmp);
+                }
             }
-
-
-
-            Console.ReadLine();
         }
         static void Load() {
             RarePool = LoadClassFromXml<RarePool>("RarePool.xml");

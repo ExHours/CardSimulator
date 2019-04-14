@@ -27,7 +27,7 @@ namespace CardSimulator {
             this.CardPoolName = CardPoolName;
             list = new List<Card>();
             for (int i = 0; i < Ca.Length; i++) {
-                list.Add(new Card(Ca[i].Name, Ca[i].RareDegree, Ca[i].Value, Ca[i].imagename));
+                list.Add(new Card(Ca[i].ID, Ca[i].Name, Ca[i].RareDegree, Ca[i].Value, Ca[i].imagename));
             }
         }
         public Card this[int index] {

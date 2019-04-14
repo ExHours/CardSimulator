@@ -161,9 +161,9 @@ namespace CardSimulator {
         /// </summary>
         /// <param name="RarePool">稀有度列表</param>
         /// <returns></returns>
-        public static RareEnum[] RarePoolToRareNum(List<RareEnum> RarePool) {
-            var rarelist = new RareEnum[RarePool.Count];
-            for (int i = 0; i < RarePool.Count; i++) {
+        public static RareEnum[] RarePoolToRareNum(RarePool RarePool) {
+            var rarelist = new RareEnum[RarePool.length];
+            for (int i = 0; i < RarePool.length; i++) {
                 rarelist[i] = new RareEnum(RarePool[i].Name, 0);
             }
             return rarelist;
@@ -174,7 +174,7 @@ namespace CardSimulator {
         /// <param name="RarePool"></param>
         /// <param name="c"></param>
         /// <returns></returns>
-        public static RareEnum[] FindAllAndAddNum(List<RareEnum> RarePool, Card[] c) {
+        public static RareEnum[] FindAllAndAddNum(RarePool RarePool, Card[] c) {
             var rarelist = RarePoolToRareNum(RarePool);
             for (int i = 0; i < c.Length; i++) {
                 for (int j = 0; j < rarelist.Length; j++) {
