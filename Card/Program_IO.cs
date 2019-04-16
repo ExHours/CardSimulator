@@ -33,7 +33,7 @@ namespace CardSimulator {
             }
             return Supervisor.RandCardsFromPools(a, times, null, cardpools);
         }
-        static Card[] RandomAllCards(int times = 10) {
+        public static Card[] RandomAllCards(int times = 10) {
             var cardpools = new CardPool[RarePool.length];
             for (int j = 0; j < RarePool.length; j++) {
                 cardpools[j] = LoadCardPool(RarePool[j].Name);
@@ -112,11 +112,48 @@ namespace CardSimulator {
                 sw.Close();
             }
         }
-        static void BackSpace(int nums=1) {
-            for (int i = 0; i < nums; i++) {
-                commandline = commandline.Remove(commandline.Length - 1, 1);
+        public static void BackSpace(int nums = 1) {
+            var tmppos = Console.CursorLeft;
+            Console.SetCursorPosition(commandline.Length, Console.CursorTop);
+            for (int i = 0; i < commandline.Length; i++) {
                 Console.Write("\b\0\b");
             }
+            if (tmppos - 1 > nums) {
+                for (int i = 0; i < nums; i++) {
+                    commandline = commandline.Remove(tmppos - 1, 1);
+                }
+            } else if (tmppos - 1 == nums) {
+                commandline = commandline[0].ToString();
+            } else {
+                commandline = "";
+            }
+            Console.Write(commandline);
+            Console.SetCursorPosition(tmppos - nums, Console.CursorTop);
+        }
+        static string[] proload(string commandline) {
+            commandline = commandline.Trim();
+            for (int i = 0; i < commandline.Length; i++) {
+                if (commandline[i] == '\0') {
+                    commandline = commandline.Remove(i, 1);
+                    i--;
+                }
+            }
+            for (int i = 0; i < commandline.Length - 1; i++) {
+                if (commandline[i] == ' ' && commandline[i + 1] == ' ') {
+                    commandline = commandline.Remove(i, 1);
+                    i--;
+                }
+            }
+            return commandline.Split(' ');
+        }
+        static void RefreshCommandLine() {
+            var tmppos = Console.CursorLeft;
+            Console.SetCursorPosition(commandline.Length, Console.CursorTop);
+            for (int i = 0; i < commandline.Length; i++) {
+                Console.Write("\b\0\b");
+            }
+            Console.Write(commandline);
+            Console.SetCursorPosition(tmppos + 1, Console.CursorTop);
         }
     }
 }

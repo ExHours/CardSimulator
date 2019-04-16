@@ -16,7 +16,7 @@ namespace CardSimulator {
         public string Name { get; }
         public int ParmsNums { get; }
         public string SearchPos { get; }
-        public abstract void Run(string[] Params);
+        public abstract string Run(string[] Params);
 
     }
 }
